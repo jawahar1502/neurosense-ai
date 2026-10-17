@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signal Explorer — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="signal-explorer" data-title="Signal Explorer">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head">
+          <div><h1>Signal Explorer</h1><p>Inspect waveforms, spectra and descriptive features of the current recording.</p></div>
+          <div class="btn-row"><span class="badge" id="src-badge"></span><a class="btn btn-secondary btn-sm" href="eeg-analysis.html">Change recording</a></div>
+        </div>
+
+        <div class="grid grid-main">
+          <section class="card" aria-label="Signal workspace">
+            <div class="tabs" role="tablist" aria-label="Signal views">
+              <button class="tab" role="tab" id="t-raw" aria-selected="true" aria-controls="p-raw" data-tab="raw">Raw Signal</button>
+              <button class="tab" role="tab" id="t-proc" aria-selected="false" aria-controls="p-proc" data-tab="proc" tabindex="-1">Processed Signal</button>
+              <button class="tab" role="tab" id="t-spec" aria-selected="false" aria-controls="p-spec" data-tab="spec" tabindex="-1">Frequency Spectrum</button>
+              <button class="tab" role="tab" id="t-feat" aria-selected="false" aria-controls="p-feat" data-tab="feat" tabindex="-1">Feature Analysis</button>
+            </div>
+
+            <div class="chip-row" id="chips" role="group" aria-label="Channel selection" style="margin-bottom:12px"></div>
+
+            <div role="tabpanel" id="p-raw" aria-labelledby="t-raw" class="tab-panel">
+              <div class="btn-row" style="margin-bottom:10px" id="nav-controls">
+                <button class="btn btn-secondary btn-sm" id="pan-l" type="button" aria-label="Pan left">◀</button>
+                <button class="btn btn-secondary btn-sm" id="pan-r" type="button" aria-label="Pan right">▶</button>
+                <button class="btn btn-secondary btn-sm" id="zin" type="button" aria-label="Zoom in">Zoom +</button>
+                <button class="btn btn-secondary btn-sm" id="zout" type="button" aria-label="Zoom out">Zoom −</button>
+                <label class="sr-only" for="amp">Amplitude scale</label>
+                <select class="input" id="amp" style="width:auto"><option value="10">±10 µV</option><option value="25">±25 µV</option><option value="50" selected>±50 µV</option><option value="100">±100 µV</option><option value="200">±200 µV</option></select>
+                <label class="sr-only" for="start">Start time</label>
+                <input type="range" id="start" min="0" max="50" step="0.5" value="0" style="flex:1;min-width:140px;accent-color:#0F9D94" aria-label="Start time (seconds)">
+                <span class="small muted" id="range-label"></span>
+              </div>
+              <div class="chart-box"><canvas id="raw" role="img" aria-label="Raw multichannel EEG"></canvas></div>
+              <div class="small muted" id="readout" style="margin-top:8px;min-height:1.4em">Hover the plot to read time and amplitude. Drag to pan; scroll to zoom.</div>
+            </div>
+
+            <div role="tabpanel" id="p-proc" aria-labelledby="t-proc" class="tab-panel" hidden>
+              <div id="proc-empty" class="empty"><div id="pe-ico"></div><h3>Processed signal unavailable</h3><p>No preprocessing has been run on this recording. Run the band-pass filter in EEG Analysis first — nothing is faked here.</p><a class="btn btn-primary" href="eeg-analysis.html">Go to EEG Analysis</a></div>
+              <div id="proc-wrap" hidden><p class="small muted" id="proc-note"></p><div class="chart-box"><canvas id="proc"></canvas></div></div>
+            </div>
+
+            <div role="tabpanel" id="p-spec" aria-labelledby="t-spec" class="tab-panel" hidden>
+              <p class="small muted">Welch power spectral density (Hann window, 50% overlap) of the visible channels, log scale.</p>
+              <div class="chart-box"><canvas id="psd" role="img" aria-label="Power spectral density"></canvas></div>
+              <div class="legend" id="psd-legend" style="margin-top:8px"></div>
+              <h3 style="margin:18px 0 8px">Band-power comparison</h3>
+              <div class="table-wrap"><table class="data" id="bp-table"></table></div>
+            </div>
+
+            <div role="tabpanel" id="p-feat" aria-labelledby="t-feat" class="tab-panel" hidden>
+              <div class="notice notice-info" style="margin-bottom:12px"><span id="f-ico"></span><span>Descriptive features computed from the loaded signal in your browser. They are <b>not</b> diagnostic markers.</span></div>
+              <div class="table-wrap"><table class="data" id="feat-table"></table></div>
+              <div id="asym" class="small muted" style="margin-top:12px"></div>
+            </div>
+          </section>
+
+          <div class="stack">
+            <section class="card"><h2 style="margin-bottom:14px">Recording Metadata</h2><dl class="meta-list" id="meta"></dl></section>
+            <section class="card"><h2>Signal Quality Summary</h2><p class="small muted" style="margin:4px 0 12px">Basic checks only; not validated artifact detection.</p><ul class="qc-list" id="qc"></ul></section>
+          </div>
+        </div>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/recording.js"></script>
+  <script src="../js/signal-explorer.js"></script>
+</body>
+</html>

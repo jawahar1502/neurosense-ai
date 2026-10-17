@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="settings" data-title="Settings">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head"><div><h1>Settings</h1><p>Interface preferences are saved in this browser only. They never contain medical data.</p></div></div>
+        <div class="grid grid-2">
+          <section class="card" aria-labelledby="ui-t"><h2 id="ui-t" style="margin-bottom:14px">Interface preferences</h2>
+            <div class="field"><label for="theme">Theme</label><select class="input" id="theme"><option value="light">Light (default)</option><option value="dark">Dark</option></select></div>
+            <div class="field"><label for="density">Density</label><select class="input" id="density"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select><div class="field-hint">Compact reduces page padding.</div></div>
+            <button class="btn btn-secondary btn-sm" id="reset" type="button">Reset preferences</button></section>
+
+          <section class="card" aria-labelledby="ch-t"><h2 id="ch-t" style="margin-bottom:14px">Chart preferences</h2>
+            <label class="check" style="margin-bottom:12px"><input type="checkbox" id="grid"> Show grid lines on waveforms</label>
+            <p class="small muted" style="margin:0">Applies to EEG waveform plots on the next redraw.</p></section>
+
+          <section class="card" aria-labelledby="env-t"><h2 id="env-t" style="margin-bottom:14px">Research environment</h2>
+            <dl class="meta-list"><dt>Application version</dt><dd>0.1.0 (demo)</dd><dt>Environment</dt><dd>Browser-only sandbox</dd><dt>Trained model</dt><dd>None configured</dd><dt>Backend service</dt><dd>None (optional FastAPI)</dd><dt>Signal data</dt><dd>Synthetic or user-selected CSV</dd></dl></section>
+
+          <section class="card" aria-labelledby="prof-t"><h2 id="prof-t" style="margin-bottom:14px">Profile <span class="demo-tag">Demo only</span></h2>
+            <dl class="meta-list" id="profile"></dl>
+            <div class="notice notice-warn" style="margin-top:14px"><span id="i1"></span><span>This profile and sign-in are a simulation. No identity verification, secure authentication or role-based authorization exists, and the page guard can be bypassed.</span></div></section>
+
+          <section class="card" aria-labelledby="dh-t"><h2 id="dh-t" style="margin-bottom:10px">Data handling</h2>
+            <ul style="margin:0;padding-left:18px;display:grid;gap:6px" class="small">
+              <li>Files you choose are read in your browser and are not uploaded anywhere.</li>
+              <li>The current recording is held in session storage only (small CSVs) and cleared on logout or when the browser session ends.</li>
+              <li>Local storage holds only harmless UI preferences (and optionally a remembered sign-in email).</li>
+              <li>Passwords are never stored. Do not enter real patient data.</li></ul></section>
+
+          <section class="card" aria-labelledby="dis-t"><h2 id="dis-t" style="margin-bottom:10px">Research disclaimer</h2>
+            <p>NeuroSense AI is a research and screening prototype, not a clinically validated diagnostic device. EEG alone cannot diagnose depression. Results are not a diagnosis, and clinical interpretation requires assessment by a qualified healthcare professional.</p></section>
+        </div>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/navigation.js"></script>
+  <script>
+    (function () {
+      const { $, Prefs, Session, icon, esc, toast } = NS, p = Prefs.get(), u = Session.get() || {};
+      $('#theme').value = p.theme; $('#density').value = p.density; $('#grid').checked = !!p.gridLines;
+      $('#i1').innerHTML = icon('alert'); $('#i1').firstChild.style.cssText = 'width:20px;height:20px;flex:none';
+      $('#profile').innerHTML = [['Name', u.name], ['Email', u.email], ['Role', u.role], ['Institution', u.institution || 'Not provided']].map((r) => '<dt>' + r[0] + '</dt><dd>' + esc(r[1] || 'Not available') + '</dd>').join('');
+      const applyDensity = () => document.querySelector('.content').style.padding = Prefs.get().density === 'compact' ? '12px' : '';
+      applyDensity();
+      $('#theme').addEventListener('change', (e) => { Prefs.set({ theme: e.target.value }); toast('Theme set to ' + e.target.value + '.'); });
+      $('#density').addEventListener('change', (e) => { Prefs.set({ density: e.target.value }); applyDensity(); });
+      $('#grid').addEventListener('change', (e) => Prefs.set({ gridLines: e.target.checked }));
+      $('#reset').addEventListener('click', () => { Prefs.set(Prefs.defaults); $('#theme').value = 'light'; $('#density').value = 'comfortable'; $('#grid').checked = true; applyDensity(); toast('Preferences reset.'); });
+    })();
+  </script>
+</body>
+</html>

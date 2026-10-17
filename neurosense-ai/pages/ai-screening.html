@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Screening — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="ai-screening" data-title="AI Screening">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head">
+          <div><h1>AI Screening</h1><p>A transparent workflow from recording validation to research result review.</p></div>
+          <div class="btn-row"><button class="btn btn-primary" id="run" type="button">Run workflow</button><button class="btn btn-secondary" id="sample" type="button">Explore sample result</button></div>
+        </div>
+
+        <div class="notice notice-warn clinical-notice" role="note" style="margin-bottom:var(--sp-5)">
+          <span id="cn-ico"></span><span><b>Research screening only.</b> Results are not a diagnosis. Clinical interpretation requires assessment by a qualified healthcare professional.</span>
+        </div>
+
+        <section class="card" aria-labelledby="wf-t">
+          <div class="card-head"><div><h2 id="wf-t">Analysis Workflow</h2><p id="wf-sub">Press “Run workflow” to execute the stages that are implemented in this build.</p></div><span class="badge badge-muted" id="src-badge">No recording</span></div>
+          <div class="stepper" id="stepper" role="list"></div>
+        </section>
+
+        <div class="grid grid-main" style="margin-top:var(--sp-5)">
+          <div class="stack">
+            <section class="card" aria-labelledby="rc-t" aria-live="polite">
+              <div class="card-head"><h2 id="rc-t">Research Result</h2><span class="badge badge-muted" id="rc-badge">Not run</span></div>
+              <div id="result"></div>
+            </section>
+
+            <section class="card" aria-labelledby="xf-t">
+              <div class="card-head"><div><h2 id="xf-t">Extracted EEG Features</h2><p>Descriptive values computed in your browser from the loaded recording.</p></div></div>
+              <div id="features"><div class="empty"><h3>No features yet</h3><p>Run the workflow to extract features.</p></div></div>
+            </section>
+          </div>
+
+          <div class="stack">
+            <section class="card" aria-labelledby="xai-t">
+              <div class="card-head"><div><h2 id="xai-t">Explainable AI</h2><p>Relative feature importance</p></div></div>
+              <div id="xai"><div class="empty"><h3>Importance unavailable</h3><p>A trained model must supply importance values. Nothing is estimated here.</p></div></div>
+              <p class="small muted" style="margin-top:12px">Importance describes what a model relied on. It is not proof of causation or a clinical explanation.</p>
+            </section>
+            <section class="card" aria-labelledby="lim-t"><h2 id="lim-t" style="margin-bottom:10px">Model Limitations</h2>
+              <ul class="small" style="margin:0;padding-left:18px;display:grid;gap:6px">
+                <li>EEG alone cannot diagnose depression.</li>
+                <li>Dataset labels may reflect questionnaire scores, not clinical diagnoses.</li>
+                <li>Results must be validated on participant-independent data.</li>
+                <li>No confidence value is shown unless a real model supplies one.</li>
+              </ul></section>
+            <section class="card" aria-labelledby="api-t"><h2 id="api-t" style="margin-bottom:6px">Model service</h2>
+              <p class="small muted">Optional connection to a future FastAPI service (<code>POST /api/v1/predict</code>). Leave empty to stay in “AI model not configured” mode.</p>
+              <div class="field"><label for="api">Service base URL</label><input class="input" id="api" type="url" placeholder="http://localhost:8000"><div class="field-error" id="api-err"></div></div>
+              <div class="btn-row"><button class="btn btn-secondary btn-sm" id="api-save" type="button">Save URL</button><button class="btn btn-secondary btn-sm" id="api-check" type="button">Check /health</button></div>
+              <div class="small" id="api-status" style="margin-top:10px" role="status"></div></section>
+          </div>
+        </div>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/demo-data.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/recording.js"></script>
+  <script src="../js/screening.js"></script>
+</body>
+</html>

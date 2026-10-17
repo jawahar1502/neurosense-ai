@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reports — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="reports" data-title="Reports">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head"><div><h1>Reports</h1><p>Research report summaries. Entries are fictional demonstration records, plus your current-session recording if one is loaded. No personally identifiable information is stored or exported.</p></div></div>
+
+        <section class="card no-print" aria-labelledby="rl-t">
+          <h2 id="rl-t" style="margin-bottom:12px">Available reports</h2>
+          <div class="table-wrap"><table class="data"><thead><tr><th>Report ID</th><th>Recording ID</th><th>Analysis date</th><th>Source</th><th>Action</th></tr></thead><tbody id="list"></tbody></table></div>
+        </section>
+
+        <section id="report-view" style="margin-top:var(--sp-5)" aria-live="polite">
+          <div class="card empty no-print" id="rv-empty"><div id="e-ico"></div><h3>No report selected</h3><p>Choose “View Report” above.</p></div>
+          <div id="rv" hidden>
+            <div class="btn-row no-print" style="margin-bottom:12px">
+              <button class="btn btn-primary" id="print" type="button"></button>
+              <button class="btn btn-secondary" id="csv" type="button"></button>
+              <button class="btn btn-secondary tip" id="pdf" type="button" aria-disabled="true" data-tip="No client-side PDF library is configured. Use Print Report, then choose “Save as PDF”.">Export PDF</button>
+            </div>
+            <article class="report-sheet" id="sheet"></article>
+          </div>
+        </section>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/demo-data.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/recording.js"></script>
+  <script src="../js/reports.js"></script>
+</body>
+</html>

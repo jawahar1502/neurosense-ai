@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview — NeuroSense AI</title>
+  <meta name="description" content="NeuroSense AI research dashboard (demonstration data).">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/app.js"></script>
+</head>
+<body data-page="overview" data-title="Overview">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+
+        <section class="hero" aria-labelledby="greet">
+          <svg class="hero-art" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 100 C30 100 35 40 60 40 S90 160 120 160 S150 60 180 60 S210 130 240 130 S270 30 300 30 S340 150 370 150 S390 100 400 100" fill="none" stroke="#5FD6CD" stroke-width="3"/><path d="M0 130 C40 130 50 80 90 80 S140 150 190 150 S250 90 300 90 S360 140 400 140" fill="none" stroke="#8276D8" stroke-width="2.5"/></svg>
+          <div>
+            <h1 id="greet">Good morning, Doctor</h1>
+            <p>Monitor EEG recordings, explore brainwave patterns, and review depression-screening research.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="pages/eeg-analysis.html">Start New Analysis</a>
+              <a class="btn btn-secondary" href="pages/dataset-explorer.html">Explore Dataset</a>
+            </div>
+          </div>
+          <span class="badge badge-ai" style="position:relative;z-index:1;align-self:flex-start">Research prototype · demo data</span>
+        </section>
+
+        <div class="notice notice-warn" style="margin-top:var(--sp-5)" role="note">
+          <span id="n-ico"></span>
+          <span><b>Demonstration data.</b> Values on this page are illustrative placeholders. No real recordings have been analysed and no trained model is configured.</span>
+        </div>
+
+        <section class="grid grid-4" style="margin-top:var(--sp-5)" aria-label="Key figures">
+          <article class="card kpi"><div class="kpi-top"><div class="kpi-icon" data-i="wave"></div><span class="demo-tag">Demo</span></div>
+            <div class="kpi-label">EEG Recordings Analyzed</div><div class="kpi-value">128</div><div class="kpi-trend up">▲ 12 this week (placeholder)</div></article>
+          <article class="card kpi"><div class="kpi-top"><div class="kpi-icon" data-i="shield"></div><span class="demo-tag">Demo</span></div>
+            <div class="kpi-label">Signal Quality Pass Rate</div><div class="kpi-value">94.5%</div><div class="kpi-trend up">▲ 1.2 pts (placeholder)</div></article>
+          <article class="card kpi"><div class="kpi-top"><div class="kpi-icon lav" data-i="target"></div><span class="badge badge-muted">No model</span></div>
+            <div class="kpi-label">Research Model Performance</div><div class="kpi-value">Not available</div><div class="kpi-trend">No trained model configured — nothing has been measured.</div></article>
+          <article class="card kpi"><div class="kpi-top"><div class="kpi-icon warn" data-i="clock"></div><span class="demo-tag">Demo</span></div>
+            <div class="kpi-label">Pending Review</div><div class="kpi-value">7</div><div class="kpi-trend">Awaiting reviewer sign-off (placeholder)</div></article>
+        </section>
+
+        <section class="grid grid-main" style="margin-top:var(--sp-5)">
+          <article class="card" aria-labelledby="wf-title">
+            <div class="card-head">
+              <div><h2 id="wf-title">Brainwave Visualization <span class="demo-tag">Synthetic</span></h2><p>Generated demonstration signal (256 Hz, µV). Not a real recording.</p></div>
+              <div class="btn-row">
+                <label class="sr-only" for="range">Time range</label>
+                <select class="input" id="range" style="width:auto"><option value="5">5 s</option><option value="10" selected>10 s</option><option value="20">20 s</option></select>
+                <button class="btn btn-secondary btn-sm" id="play" type="button" aria-pressed="true"></button>
+                <button class="btn btn-secondary btn-sm" id="reset" type="button"></button>
+                <button class="btn btn-ghost btn-sm" id="unload" type="button">Clear</button>
+              </div>
+            </div>
+            <div class="chip-row" id="chips" role="group" aria-label="Toggle channel visibility"></div>
+            <div class="chart-box" id="wf-box" style="margin-top:12px"><canvas id="wf" role="img" aria-label="Stacked synthetic EEG channels over time"></canvas></div>
+            <div class="empty" id="wf-empty" hidden>
+              <div id="e-ico"></div><h3>No recording loaded</h3><p>Load the synthetic demonstration recording, or upload your own CSV in EEG Analysis.</p>
+              <div class="btn-row" style="justify-content:center"><button class="btn btn-primary" id="load" type="button">Load synthetic demo</button><a class="btn btn-secondary" href="pages/eeg-analysis.html">Go to EEG Analysis</a></div>
+            </div>
+          </article>
+
+          <article class="card" aria-labelledby="bp-title">
+            <div class="card-head"><div><h2 id="bp-title">Frequency Band Analysis <span class="demo-tag">Synthetic</span></h2><p>Relative power computed (Welch PSD) from the synthetic signal.</p></div></div>
+            <div class="bars" id="bands"></div>
+            <div class="band-cards" id="band-cards"></div>
+            <p class="small muted" style="margin-top:14px">Hover a band name for a plain-language description. No single band is a definitive marker of depression.</p>
+          </article>
+        </section>
+
+        <section class="card" style="margin-top:var(--sp-5)" aria-labelledby="ra-title">
+          <div class="card-head"><div><h2 id="ra-title">Recent Research Activity <span class="demo-tag">Demo</span></h2><p>Fictional identifiers and synthetic entries. No patient names or real records.</p></div><a class="btn btn-secondary btn-sm" href="pages/reports.html">All reports</a></div>
+          <div class="table-wrap"><table class="data">
+            <thead><tr><th>Recording ID</th><th>Recording date</th><th>Signal quality</th><th>Analysis status</th><th>Research result status</th><th>Action</th></tr></thead>
+            <tbody id="recent"></tbody>
+          </table></div>
+        </section>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="js/demo-data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

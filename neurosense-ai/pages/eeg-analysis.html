@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EEG Analysis — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="eeg-analysis" data-title="EEG Analysis">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head">
+          <div><h1>EEG Analysis</h1><p>Load a recording, check basic signal quality, and run the preprocessing steps implemented in this browser build.</p></div>
+        </div>
+
+        <div class="grid grid-main">
+          <div class="stack">
+            <section class="card" aria-labelledby="up-t">
+              <div class="card-head"><div><h2 id="up-t">Upload EEG Recording</h2><p>Accepted: <b>.csv</b> (numeric channel columns) and <b>.edf</b> (header inspection only). Max 25 MB.</p></div>
+                <div class="btn-row"><button class="btn btn-secondary btn-sm" id="sample" type="button">Use synthetic sample</button><button class="btn btn-ghost btn-sm" id="remove" type="button" hidden>Remove</button></div></div>
+              <div class="dropzone" id="drop" tabindex="0" role="button" aria-label="Drop an EEG file here or press Enter to browse">
+                <div id="up-ico"></div>
+                <h3 style="margin-top:8px">Drag &amp; drop your recording here</h3>
+                <p class="muted small" style="margin:6px 0 12px">CSV: one column per channel (optional <code>time</code> column). EDF: header metadata only.</p>
+                <button class="btn btn-primary" id="browse" type="button">Browse Files</button>
+                <input id="file" type="file" accept=".csv,.edf,text/csv" class="sr-only" aria-label="Choose EEG file" tabindex="-1">
+              </div>
+              <div id="prog" hidden style="margin-top:14px"><div class="small" id="prog-label">Reading…</div><div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></div>
+              <div id="feedback" style="margin-top:14px" role="status" aria-live="polite"></div>
+            </section>
+
+            <section class="card" aria-labelledby="pv-t">
+              <div class="card-head"><div><h2 id="pv-t">Signal Preview</h2><p id="pv-sub">Load a recording to preview it.</p></div></div>
+              <div id="pv-empty" class="empty"><div id="pv-ico"></div><h3>No recording loaded</h3><p>Upload a CSV or use the synthetic sample to begin.</p></div>
+              <div class="chart-box" id="pv-box" hidden><canvas id="pv" role="img" aria-label="Preview of loaded EEG channels"></canvas></div>
+            </section>
+
+            <section class="card" aria-labelledby="ctl-t">
+              <div class="card-head"><div><h2 id="ctl-t">Analysis Controls</h2><p>Only operations implemented in JavaScript are run: zero-phase band-pass filter, Welch PSD, band power, epoching.</p></div></div>
+              <form id="ctl" novalidate>
+                <div class="form-grid">
+                  <div class="field"><label for="fs"><span class="tip" tabindex="0" data-tip="Samples per second. For CSV files this cannot always be inferred, so confirm it.">Sampling frequency (Hz)</span></label><input class="input" id="fs" type="number" step="any" value="256"><div class="field-error" id="fs-err"></div></div>
+                  <div class="field"><label for="epoch"><span class="tip" tabindex="0" data-tip="Length of each analysis segment used to count epochs.">Epoch duration (s)</span></label><input class="input" id="epoch" type="number" step="any" value="2"><div class="field-error" id="epoch-err"></div></div>
+                  <div class="field"><label for="lo">Filter low cut (Hz)</label><input class="input" id="lo" type="number" step="any" value="1"><div class="field-error" id="lo-err"></div></div>
+                  <div class="field"><label for="hi">Filter high cut (Hz)</label><input class="input" id="hi" type="number" step="any" value="40"><div class="field-error" id="hi-err"></div></div>
+                </div>
+                <div class="field"><span class="label">Selected channels</span><div class="chip-row" id="ctl-ch" role="group" aria-label="Channels to analyse"><span class="muted small">Load a recording first.</span></div><div class="field-error" id="ch-err"></div></div>
+                <label class="check" style="margin-bottom:16px"><input type="checkbox" id="bands" checked> Compute frequency-band analysis (delta–gamma)</label>
+                <div class="btn-row"><button class="btn btn-primary" id="run" type="submit">Run preprocessing &amp; band analysis</button><a class="btn btn-secondary" href="signal-explorer.html">Open in Signal Explorer</a></div>
+              </form>
+              <div id="result" style="margin-top:18px" aria-live="polite"></div>
+            </section>
+          </div>
+
+          <div class="stack">
+            <section class="card" aria-labelledby="info-t"><h2 id="info-t" style="margin-bottom:14px">Recording Information</h2>
+              <dl class="meta-list" id="info"></dl></section>
+            <section class="card" aria-labelledby="qc-t"><h2 id="qc-t">Signal Quality Assessment</h2>
+              <p class="small muted" style="margin:4px 0 12px">Basic statistical checks only — <b>not</b> clinically validated artifact detection.</p>
+              <ul class="qc-list" id="qc"></ul></section>
+          </div>
+        </div>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/recording.js"></script>
+  <script src="../js/eeg-analysis.js"></script>
+</body>
+</html>

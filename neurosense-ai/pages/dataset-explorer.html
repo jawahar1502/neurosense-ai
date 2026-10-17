@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dataset Explorer — NeuroSense AI</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/app.js"></script>
+</head>
+<body data-page="dataset-explorer" data-title="Dataset Explorer">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+    <div id="sidebar-slot"></div>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <main class="content" id="main" tabindex="-1">
+        <div class="page-head"><div><h1>Dataset Explorer</h1><p>Public research datasets and their verification status in this workspace.</p></div></div>
+
+        <article class="card" aria-labelledby="ds-t" style="border-top:4px solid var(--teal)">
+          <div class="card-head">
+            <div><span class="badge badge-info">Featured public dataset</span><h2 id="ds-t" style="font-size:1.35rem;margin-top:8px">EEG: Depression Rest</h2><p>OpenNeuro ds003478, as mirrored on NEMAR · sole listed author: James F. Cavanagh</p></div>
+            <div class="btn-row"><a class="btn btn-primary" id="src" href="https://nemar.org/dataset/on003478" target="_blank" rel="noopener noreferrer">View Source</a></div>
+          </div>
+          <div class="grid grid-2">
+            <dl class="meta-list">
+              <dt>Participants</dt><dd>122 <span class="badge badge-muted">per source page</span></dd>
+              <dt>Recording count</dt><dd>Not verified</dd>
+              <dt>Sessions</dt><dd>2 × ~6 min per participant (per source page)</dd>
+              <dt>Channels</dt><dd>66, 10-10 system (per source page)</dd>
+              <dt>Sampling rate</dt><dd>Not stated on source page</dd>
+              <dt>License</dt><dd>CC0 (per source page)</dd>
+            </dl>
+            <dl class="meta-list">
+              <dt>Download status</dt><dd><span class="badge badge-muted">Not downloaded</span></dd>
+              <dt>Validation status</dt><dd><span class="badge badge-muted">Not validated</span></dd>
+              <dt>Processing status</dt><dd><span class="badge badge-muted">Not processed</span></dd>
+              <dt>Loaded in this app</dt><dd><span class="badge badge-muted">No</span></dd>
+            </dl>
+          </div>
+          <div class="notice notice-info" style="margin-top:16px"><span id="i1"></span><span><b>Counts shown come from the source page text</b> and have not been independently verified here. Always re-check against the dataset’s own files before reporting.</span></div>
+        </article>
+
+        <section class="grid grid-2" style="margin-top:var(--sp-5)">
+          <article class="card"><h2 style="margin-bottom:10px">Label definitions</h2>
+            <p>The source describes participants who scored reliably <b>high or low on the Beck Depression Inventory (BDI)</b>. That is a self-report questionnaire grouping.</p>
+            <div class="notice notice-warn"><span id="i2"></span><span>Do not assume these groups are clinically diagnosed depression. Check the dataset’s <code>participants.tsv</code> for the actual variables before defining labels.</span></div></article>
+          <article class="card"><h2 style="margin-bottom:10px">Available metadata</h2>
+            <ul style="margin:0;padding-left:18px;display:grid;gap:6px"><li>Eyes-open and eyes-closed blocks (1 min each, per source)</li><li>Questionnaire scores — <i>variables not verified here</i></li><li>Demographics — <i>not verified here</i></li></ul></article>
+        </section>
+
+        <section class="card" style="margin-top:var(--sp-5)"><h2 style="margin-bottom:10px">License and usage notes</h2>
+          <p>The source page lists a CC0 license. Even for public data, follow the dataset’s citation requests, respect participant privacy, and do not attempt re-identification. This prototype does not redistribute any dataset files.</p>
+          <p class="small muted" style="margin:0">Real analysis requires downloading the data (e.g. via OpenNeuro / NEMAR tools), decoding EEG files with a suitable library, and evaluating models with participant-independent splits. None of that is performed by this frontend.</p></section>
+      </main>
+      <div id="footer-slot"></div>
+    </div>
+  </div>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/dataset.js"></script>
+</body>
+</html>

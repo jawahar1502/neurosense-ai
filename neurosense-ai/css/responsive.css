@@ -1,0 +1,41 @@
+/* NeuroSense AI — responsive rules */
+@media (max-width: 1280px) {
+  .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid-main { grid-template-columns: minmax(0,1fr); }
+  .search { width: 220px; }
+}
+
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); box-shadow: var(--shadow-lg); }
+  body.drawer-open .sidebar { transform: none; }
+  body.drawer-open .scrim { display: block; }
+  .main { margin-left: 0; }
+  .icon-btn.menu-toggle { display: grid; }
+  .env-pill { display: none; }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .stepper { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+@media (max-width: 768px) {
+  .content { padding: var(--sp-4); }
+  .topbar { padding: 0 var(--sp-3); gap: var(--sp-2); }
+  .search { display: none; }
+  .top-user .who { display: none; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: minmax(0,1fr); }
+  .form-grid { grid-template-columns: minmax(0,1fr); }
+  .hero { padding: var(--sp-5); }
+  .hero h1 { font-size: 1.5rem; }
+  .hero .hero-art { display: none; }
+  .band-cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .btn { min-height: 44px; }
+  .icon-btn { width: 44px; height: 44px; }
+  .page-head { align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .stepper { grid-template-columns: minmax(0,1fr); }
+  .bar-row { grid-template-columns: 70px 1fr 48px; }
+  .crumbs .trail { display: none; }
+  .btn-row .btn { flex: 1 1 100%; }
+  .toast-host { left: 12px; right: 12px; }
+}
